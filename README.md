@@ -11,8 +11,8 @@ With Typewars users will be able to:
 
 - [ ] Start and pause the game
 - [ ] Type in letters and target the ship holding them
-- [ ] Audio and visual feedback when a typo is being commited 
-- [ ] Progressive increase of difficulty as the game advances 
+- [ ] Audio and visual feedback when a typo is being commited
+- [ ] Progressive increase of difficulty as the game advances
 
 In addition, this project will include:
 
@@ -24,9 +24,9 @@ In addition, this project will include:
 ### Wireframes
 
 This app will consist of a single screen with game board, game controls, and nav links to the Github, my LinkedIn,
-and the Instructions modal.  Game controls will include Start, Stop and Mute buttons 
+and the Instructions modal.  Game controls will include Start, Stop and Mute buttons
 
-![wireframes](https://github.com/appacademy/job-search-curriculum/blob/master/job-search-projects/images/js_wireframe.jpeg)
+![wireframes](./assets/images/typewars.png)
 
 ### Architecture and Technologies
 
@@ -60,7 +60,7 @@ In addition to the webpack entry file, there will be three scripts involved in t
 - Evenly randomize the length and difficulty of words
 - Once a target is locked all other ships should ignore keyboard input
 
-**Day 3**: Register user keyboard interaction 
+**Day 3**: Register user keyboard interaction
 
 - Target correct enemy ship upon user typing
 - Shoot a bullet for each correct letter
