@@ -27,6 +27,7 @@ This app will consist of a single screen with game board, game controls, and nav
 and the Instructions modal.  Game controls will include Start, Stop and Mute buttons
 
 ![wireframes](./assets/images/typewars.png)
+![modal](./assets/images/typewars_modal.png)
 
 ### Architecture and Technologies
 
