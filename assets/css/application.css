@@ -2,8 +2,15 @@
   border: 1px solid black;
   margin: 0 auto;
   display: block;
+  position: relative;
 }
 
 body {
   height: 96vh;
+}
+
+.welcome {
+  position: absolute;
+  top: 40px;
+  left: 100px;
 }
