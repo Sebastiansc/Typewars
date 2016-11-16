@@ -1,16 +1,66 @@
+body, html, div, h1, h2, h3, h4, button, a, p, span {
+  font-family: inherit;
+  color: inherit;
+  font-size: inherit;
+}
+
 #canvas {
   border: 1px solid black;
   margin: 0 auto;
   display: block;
-  position: relative;
 }
 
 body {
   height: 96vh;
+  font-family: 'Delius Unicase', cursive;
 }
 
-.welcome {
+.welcome-screen {
   position: absolute;
-  top: 40px;
-  left: 100px;
+  margin: auto;
+  left: 0;
+  color: white;
+  top: 0;
+  right: 0;
+  width: 255px;
+  height: 400px;
+  bottom: 0;
+}
+
+.welcome-screen h1 {
+  font-size: 46px;
+  font-weight: normal;
+  text-align: center;
+}
+
+.play {
+  -webkit-box-shadow: inset 1px 0px 6px 4px rgba(60,240,240,0.73);
+  -moz-box-shadow: inset 1px 0px 6px 4px rgba(60,240,240,0.73);
+  box-shadow: inset 1px 0px 6px 4px rgba(60,240,240,0.73);
+  padding: 30px 80px;
+  background: transparent;
+  border: none;
+  font-size: 36px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+.info {
+  position: absolute;
+  bottom: 5px;
+  left: 20px;
+  display: flex;
+  justify-content: space-between;
+  width: 280px;
+  color: white;
+  font-size: 32px;
+}
+
+.fa-volume-off {
+  font-size: 40px;
+}
+
+.tools i:first-child {
+  padding-right: 10px;
 }
