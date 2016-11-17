@@ -19,7 +19,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const sounds = [
 		{src: "explosion.wav", id: "explosion"},
 		{src: "laser.wav", id: "laser"},
-		{src: "automation.mp3", id: "music"}
+		{src: "automation.mp3", id: "music"},
+    {src: 'no.mp3', id: 'no'}
   ];
   createjs.Sound.alternateExtensions = ["mp3"];
   const ppc = new createjs.PlayPropsConfig().set({loop: -1, volume: 0.5});
