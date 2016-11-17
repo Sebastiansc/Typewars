@@ -93,3 +93,8 @@ body {
   visibility: visible;
   opacity: 0;
 }
+
+.game-over > span{
+  display: block;
+  margin-bottom: 10px;
+}
