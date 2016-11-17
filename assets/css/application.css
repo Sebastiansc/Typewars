@@ -5,6 +5,10 @@ body, html, div, h1, h2, h3, h4, button, a, p, span {
   text-shadow: inherit;
 }
 
+p {
+  margin: 0;
+}
+
 #canvas {
   border: 1px solid black;
   margin: 0 auto;
@@ -18,7 +22,7 @@ body {
 
 .welcome-screen {
   position: absolute;
-  margin: auto;
+  margin: 80px auto;
   left: 0;
   color: white;
   top: 0;
@@ -34,6 +38,15 @@ body {
   font-weight: normal;
   text-align: center;
 }
+
+.instructions {
+  -webkit-box-shadow: inset 1px 0px 6px 4px rgba(60,240,240,0.73);
+  -moz-box-shadow: inset 1px 0px 6px 4px rgba(60,240,240,0.73);
+  box-shadow: inset 1px 0px 6px 4px rgba(60,240,240,0.73);
+  border-radius: 50%;
+}
+
+
 
 .play {
   -webkit-box-shadow: inset 1px 0px 6px 4px rgba(60,240,240,0.73);

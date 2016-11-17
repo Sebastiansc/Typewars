@@ -640,7 +640,7 @@
 	          this.ship = null;
 	        }
 	      } else {
-	        createjs.Sound.play('typo');
+	        createjs.Sound.play('no');
 	        this.ship.attachWord('#ef4721');
 	      }
 	    }
