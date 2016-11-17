@@ -20,10 +20,11 @@ document.addEventListener("DOMContentLoaded", () => {
 		{src: "explosion.wav", id: "explosion"},
 		{src: "laser.wav", id: "laser"},
 		{src: "automation.mp3", id: "music"},
-    {src: 'no.mp3', id: 'no'}
+    {src: 'no.mp3', id: 'no'},
+    {src: 'typo.mp3', id: 'typo'}
   ];
   createjs.Sound.alternateExtensions = ["mp3"];
-  const ppc = new createjs.PlayPropsConfig().set({loop: -1, volume: 0.5});
+  const ppc = new createjs.PlayPropsConfig().set({loop: -1, volume: 0.6});
   createjs.Sound.on('fileload', () => play());
   createjs.Sound.registerSounds(sounds, './assets/audio/');
 
