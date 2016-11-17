@@ -47,6 +47,9 @@ body {
   cursor: pointer;
 }
 
+.play:focus{
+  outline: none;
+}
 
 .info {
   position: absolute;
