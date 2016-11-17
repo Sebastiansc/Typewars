@@ -24,25 +24,25 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
   createjs.Sound.alternateExtensions = ["mp3"];
   const ppc = new createjs.PlayPropsConfig().set({loop: -1, volume: 0.5});
-  // createjs.Sound.on('fileload', () => play());
+  createjs.Sound.on('fileload', () => play());
   createjs.Sound.registerSounds(sounds, './assets/audio/');
 
   // Attaching pause
   $('.fa-volume-off').click(() => pause());
 
-  // let music;
-  // const play = () => {
-  //   console.log("playing");
-  //   music = createjs.Sound.play("music", ppc);
-  // };
-  //
-  // const pause = () =>{
-  //   console.log("pauising");
-  //   window.music = music;
-  //   music .stop();
-  //   music.paused = !music.paused;
-  //   music.muted = !music.muted;
-  // };
+  let music;
+  const play = () => {
+    console.log("playing");
+    music = createjs.Sound.play("music", ppc);
+  };
+
+  const pause = () =>{
+    console.log("pauising");
+    window.music = music;
+    music .stop();
+    music.paused = !music.paused;
+    music.muted = !music.muted;
+  };
 
   // canvas.addEventListener("click",fullscreen);
   const stage = new createjs.Stage(canvas);
