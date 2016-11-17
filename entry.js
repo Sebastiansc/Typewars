@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 }
 
-  canvas.addEventListener("click",fullscreen);
+  // canvas.addEventListener("click",fullscreen);
   const stage = new createjs.Stage(canvas);
   new Game(canvas, stage);
 });
