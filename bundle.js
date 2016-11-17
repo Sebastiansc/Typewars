@@ -80,16 +80,11 @@
 	
 	  var music = void 0;
 	  var play = function play() {
-	    console.log("playing");
 	    music = createjs.Sound.play("music", ppc);
 	  };
 	
 	  var pause = function pause() {
-	    console.log("pauising");
-	    window.music = music;
-	    music.stop();
 	    music.paused = !music.paused;
-	    music.muted = !music.muted;
 	  };
 	
 	  // canvas.addEventListener("click",fullscreen);

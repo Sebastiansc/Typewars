@@ -32,16 +32,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let music;
   const play = () => {
-    console.log("playing");
     music = createjs.Sound.play("music", ppc);
   };
 
   const pause = () =>{
-    console.log("pauising");
-    window.music = music;
-    music .stop();
     music.paused = !music.paused;
-    music.muted = !music.muted;
   };
 
   // canvas.addEventListener("click",fullscreen);
