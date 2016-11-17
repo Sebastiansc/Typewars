@@ -79,11 +79,17 @@
 	  });
 	
 	  var music = void 0;
+	  var paused = false;
 	  var play = function play() {
 	    music = createjs.Sound.play("music", ppc);
 	  };
 	
 	  var pause = function pause() {
+	    paused = !paused;
+	    var toAdd = paused ? 'fa-volume-up' : 'fa-volume-off';
+	    var toRemove = paused ? 'fa-volume-off' : 'fa-volume-up';
+	    $('.volume').removeClass(toRemove);
+	    $('.volume').addClass(toAdd);
 	    music.paused = !music.paused;
 	  };
 	
@@ -141,6 +147,7 @@
 	      (0, _background2.default)();
 	      $('.play').click(function () {
 	        $('.welcome-screen').hide();
+	        $('footer').hide();
 	        $('.fa-pause').click(function () {
 	          return _this.pause();
 	        });
@@ -199,6 +206,8 @@
 	      $('.waves-completed').text('Completed: ' + _mothership.mothership.wave + ' waves');
 	      $('#score').text('0');
 	      $('.welcome-screen').addClass('game-over');
+	      $('.instructions').hide();
+	      $('.play').text('Play again');
 	      $('.welcome-screen').show();
 	      // Placing it here to allow for info to be populated before reset
 	      _mothership.mothership.create();
@@ -438,7 +447,7 @@
 	  }, {
 	    key: 'explosion',
 	    value: function explosion() {
-	      (0, _utility.explode)(this, [-220, -280], 5);
+	      (0, _utility.explode)(this, [-220, -280], 2.5);
 	    }
 	  }]);
 	
@@ -770,7 +779,7 @@
 	        this.container.removeChild(child);
 	      }
 	      var label = new createjs.Text(this.word);
-	      label.font = " 20px Delius Unicase, cursive";
+	      label.font = " 20px Righteous, cursive";
 	      label.color = color;
 	      label.x = 0;
 	      label.y = 40;

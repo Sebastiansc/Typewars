@@ -7,6 +7,7 @@ body, html, div, h1, h2, h3, h4, button, a, p, span {
 
 p {
   margin: 0;
+  padding: 15px;
 }
 
 #canvas {
@@ -17,7 +18,7 @@ p {
 
 body {
   height: 96vh;
-  font-family: 'Delius Unicase', cursive;
+  font-family: 'Righteous', cursive;
 }
 
 .welcome-screen {
@@ -43,21 +44,35 @@ body {
   -webkit-box-shadow: inset 1px 0px 6px 4px rgba(60,240,240,0.73);
   -moz-box-shadow: inset 1px 0px 6px 4px rgba(60,240,240,0.73);
   box-shadow: inset 1px 0px 6px 4px rgba(60,240,240,0.73);
-  border-radius: 50%;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-bottom: 20px;
 }
 
-
+.instructions div {
+  background: rgba(60,240,240,0.73);
+  color: white;
+  font-size: 20px;
+  padding: 6px;
+}
 
 .play {
   -webkit-box-shadow: inset 1px 0px 6px 4px rgba(60,240,240,0.73);
   -moz-box-shadow: inset 1px 0px 6px 4px rgba(60,240,240,0.73);
   box-shadow: inset 1px 0px 6px 4px rgba(60,240,240,0.73);
-  padding: 30px 80px;
+  padding: 10px 30px;
   background: transparent;
   border: none;
-  font-size: 36px;
+  font-size: 32px;
   border-radius: 5px;
   cursor: pointer;
+  transition: box-shadow 500ms;
+}
+
+.play:hover {
+  -webkit-box-shadow: inset 1px 0px 6px 4px rgba(27, 115, 145,0.73);
+  -moz-box-shadow: inset 1px 0px 6px 4px rgba(27, 115, 145,0.73);
+  box-shadow: inset 1px 0px 6px 6px rgba(27, 115, 145,0.73);
 }
 
 .play:focus{
@@ -113,4 +128,31 @@ body {
 .game-over > span{
   display: block;
   margin-bottom: 10px;
+}
+
+footer {
+  display: flex;
+  width: 90%;
+  justify-content: space-around;
+  position: absolute;
+  color: white;
+  bottom: 100px;
+  margin: auto;
+  right: 0;
+  left: 0;
+  font-size: 20px;
+  align-items: center;
+}
+
+footer ul {
+  display: flex;
+}
+
+footer ul > a {
+  padding: 15px;
+  font-size: 36px;
+}
+
+.small-title {
+  margin-right: 90px;
 }

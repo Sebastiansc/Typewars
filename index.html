@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <link href="https://fonts.googleapis.com/css?family=Delius+Unicase" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="https://code.createjs.com/soundjs-0.6.2.min.js"></script>
     <script src="https://use.fontawesome.com/827c2b0edb.js"></script>
@@ -13,9 +13,10 @@
     <title>Typewars</title>
   </head>
   <body>
-    <div class="welcome-screen">
+    <main class="welcome-screen">
       <h1>TypeWars</h1>
       <div class="instructions">
+        <div>Instructions</div>
         <p>
           TypeWars is a very simple typing game. UFOs will appear from the top of the screen. Typing the word underneath one will destroy it. See how far you can get, the game will get pretty hard!
         </p>
@@ -23,8 +24,24 @@
       <span class='lost-message'></span>
       <span class='score-total'></span>
       <span class='waves-completed'></span>
-      <button class='play'>play</button>
-    </div>
+      <button class='play'>Start Game</button>
+    </main>
+
+    <footer>
+      <ul class="links">
+        <a href='https://github.com/Sebastiansc/Typewars' target='_blank'>
+          <i class="fa fa-github" aria-hidden="true"></i>
+        </a>
+        <a href='mailto:s.sebastian.cruz@gmail.com'>
+          <i class="fa fa-envelope-o" aria-hidden="true"></i>
+        </a>
+        <a href='https://www.linkedin.com/in/sebastian-cruz-739a47101?trk=hp-identity-name' target='_blank'>
+          <i class="fa fa-linkedin" aria-hidden="true"></i>
+        </a>
+      </ul>
+      <span>Designed and developed by Sebastian Cruz</span>
+      <span class='small-title'>TypeWars</span>
+    </footer>
 
     <div class="wave">
       <span class='wave-number'></span>
@@ -37,7 +54,7 @@
       </div>
       <div class="tools">
         <i class="fa fa-pause pause" aria-hidden="true"></i>
-        <i class="fa fa-volume-off" aria-hidden="true"></i>
+        <i class="fa fa-volume-off volume" aria-hidden="true"></i>
       </div>
     </div>
 
