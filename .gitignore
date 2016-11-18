@@ -5,3 +5,4 @@ node_modules/
 dictionary.txt
 words.js
 .DS_Store
+.gitignore
