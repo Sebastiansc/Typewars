@@ -44,14 +44,17 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
 	var _game = __webpack_require__(1);
 	
 	var _game2 = _interopRequireDefault(_game);
 	
+	var _mothership = __webpack_require__(7);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	/* eslint no-undef: "off", max-len: "off" */
 	document.addEventListener("DOMContentLoaded", function () {
 	  var canvas = document.getElementById("canvas");
 	  canvas.width = window.innerWidth;
@@ -93,10 +96,18 @@
 	    music.paused = !music.paused;
 	  };
 	
+	  // Setting difficulty
+	  $('.difficulties li').click(function (e) {
+	    $('.difficulties li').removeClass('selected');
+	    $(e.target).addClass('selected');
+	    _mothership.mothership.adjustDifficulty($(e.target).text().toLowerCase());
+	  });
 	  // canvas.addEventListener("click",fullscreen);
 	  var stage = new createjs.Stage(canvas);
+	  window.mothership = _mothership.mothership;
+	
 	  new _game2.default(canvas, stage);
-	}); /* eslint no-undef: "off", max-len: "off" */
+	});
 
 /***/ },
 /* 1 */
@@ -144,56 +155,43 @@
 	    value: function setup() {
 	      var _this = this;
 	
+	      // Key bindings must go first to ensure they're not attached twice
+	      $('.pause').click(function () {
+	        return _this.pause();
+	      });
+	      $('.mute').click(function () {
+	        return _this.mute();
+	      });
+	      $(window).on('keypress', function (e) {
+	        return _this.handleKeyPress(e);
+	      });
+	
 	      (0, _background2.default)();
 	      $('.play').click(function () {
 	        $('.welcome-screen').hide();
 	        $('footer').hide();
-	        $('.fa-pause').click(function () {
-	          return _this.pause();
-	        });
-	        $('.mute').click(function () {
-	          return _this.mute();
-	        });
 	        _this.play();
-	      });
-	    }
-	  }, {
-	    key: 'boundButton',
-	    value: function boundButton() {
-	      var _this2 = this;
-	
-	      $('.pause').click(function () {
-	        return _this2.pause();
-	      });
-	      $('.mute').click(function () {
-	        return _this2.mute();
 	      });
 	    }
 	  }, {
 	    key: 'play',
 	    value: function play() {
-	      var _this3 = this;
-	
 	      stage.removeChildAt(1, 2);
 	      _cannon.cannon.placeSelf();
 	      _mothership.mothership.placeShips();
-	      $(window).on('keypress', function (e) {
-	        return _this3.handleKeyPress(e);
-	      });
 	      createjs.Ticker.setFPS(40);
-	      createjs.Ticker.on("tick", function () {
-	        return _this3.tick();
-	      });
+	      createjs.Ticker.on("tick", this.tick.bind(this));
 	    }
 	  }, {
 	    key: 'gameOver',
 	    value: function gameOver() {
-	      var _this4 = this;
+	      var _this2 = this;
 	
+	      _mothership.mothership.over = true;
 	      _cannon.cannon.explosion();
 	      var cleanUp = function cleanUp() {
 	        stage.removeAllChildren();
-	        _this4.setHtml();
+	        _this2.setHtml();
 	      };
 	      setTimeout(cleanUp, 350);
 	    }
@@ -215,11 +213,11 @@
 	  }, {
 	    key: 'handleKeyPress',
 	    value: function handleKeyPress(e) {
-	      var _this5 = this;
+	      var _this3 = this;
 	
 	      if (createjs.Ticker.getPaused()) return;
 	      _mothership.mothership.checkForHit(e.key, function () {
-	        return _this5.success();
+	        return _this3.success();
 	      });
 	    }
 	  }, {
@@ -506,20 +504,10 @@
 	    value: function target(ship, distance, shiftBullet) {
 	      var _this2 = this;
 	
-	      var x = this.setXCoordinate(ship);
 	      createjs.Sound.play('laser');
-	      createjs.Tween.get(this.bullet).to({ x: x, y: ship.container.y, alpha: 1 }, distance / this.speed).call(function () {
+	      createjs.Tween.get(this.bullet).to({ x: ship.container.x + 45, y: ship.container.y, alpha: 1 }, distance / this.speed).call(function () {
 	        return _this2.hitTarget(ship, shiftBullet);
 	      });
-	    }
-	  }, {
-	    key: 'setXCoordinate',
-	    value: function setXCoordinate(ship) {
-	      if (ship.container.x > _cannon.cannon.position()[0] + 100) {
-	        return ship.container.x + ship.container.children[0].image.width / 2;
-	      } else {
-	        return ship.container.x;
-	      }
 	    }
 	  }, {
 	    key: 'hitTarget',
@@ -579,24 +567,46 @@
 	  }
 	
 	  _createClass(MotherShip, [{
+	    key: 'adjustDifficulty',
+	    value: function adjustDifficulty(difficulty) {
+	      this.difficulty = difficulty;
+	    }
+	  }, {
 	    key: 'create',
 	    value: function create() {
+	      // Instance level constructor to allow singleton settings reset
 	      this.wave = 1;
 	      this.ships = [];
 	      this.max = 4;
 	      this.min = 2;
 	      this.fleet = 3;
 	      this.ship = null;
+	      this.difficulty = this.difficulty || 'normal';
+	      this.over = false;
+	      this.spawnThrottle = this.setThrottle();
+	    }
+	  }, {
+	    key: 'setThrottle',
+	    value: function setThrottle() {
+	      switch (this.difficulty) {
+	        case "easy":
+	          return 2400;
+	        case "normal":
+	          return 2100;
+	        case "hard":
+	          return 1700;
+	        default:
+	
+	      }
 	    }
 	  }, {
 	    key: 'placeShips',
 	    value: function placeShips() {
 	      var _this = this;
 	
-	      window.mothership = mothership;
 	      var currentWords = (0, _utility.selectWords)(_words2.default, this.fleet, this.min, this.max);
 	      for (var i = 0; i < this.fleet; i++) {
-	        var ship = new _ship2.default(currentWords[i], _cannon.cannon.position());
+	        var ship = new _ship2.default(currentWords[i], _cannon.cannon.position(), this.minSpeed());
 	        this.ships.push(ship);
 	      }
 	
@@ -614,11 +624,16 @@
 	      update(0);
 	    }
 	  }, {
+	    key: 'minSpeed',
+	    value: function minSpeed() {
+	      return this.spawnThrottle + 17000;
+	    }
+	  }, {
 	    key: 'spawnRate',
 	    value: function spawnRate() {
 	      var random = Math.random();
 	      var randomNum = random < 0.5 ? random * 100 : random * -100;
-	      return 200 + 2100 / this.wave + randomNum;
+	      return 200 + this.spawnThrottle / this.wave + randomNum;
 	    }
 	  }, {
 	    key: 'checkForHit',
@@ -667,6 +682,7 @@
 	  }, {
 	    key: 'startNextWave',
 	    value: function startNextWave() {
+	      if (this.over) return;
 	      $('.wave-number').text('Wave ' + this.wave);
 	      $('.wave').addClass('hovered');
 	      setTimeout(function () {
@@ -678,13 +694,35 @@
 	  }, {
 	    key: 'setDifficulty',
 	    value: function setDifficulty() {
+	      this[this.difficulty]();
+	    }
+	  }, {
+	    key: 'easy',
+	    value: function easy() {
 	      this.wave += 1;
 	      if (this.wave % 2 === 0) {
 	        this.fleet += 1;
-	        this.max += 1;
-	      } else if (this.wave % 4 === 0) {
+	        this.max = this.max > 5 ? this.max : this.max + 1;
+	      }
+	    }
+	  }, {
+	    key: 'normal',
+	    value: function normal() {
+	      this.wave += 1;
+	      if (this.wave % 2 === 0) {
+	        this.fleet += 1;
+	        this.max = this.max > 7 ? this.max : this.max + 1;
+	      } else if (this.wave % 5 === 0) {
 	        this.min += 1;
 	      }
+	    }
+	  }, {
+	    key: 'hard',
+	    value: function hard() {
+	      this.wave += 1;
+	      this.fleet += 1;
+	      this.max += 1;
+	      if (this.wave % 2 === 0) this.min += 2;
 	    }
 	  }, {
 	    key: 'registerHit',
@@ -728,10 +766,11 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	var Ship = function () {
-	  function Ship(word, target) {
+	  function Ship(word, target, maxSpeed) {
 	    _classCallCheck(this, Ship);
 	
 	    this.word = word;
+	    this.maxSpeed = maxSpeed;
 	    this.target = target;
 	  }
 	
@@ -767,7 +806,7 @@
 	  }, {
 	    key: 'speed',
 	    value: function speed() {
-	      return (0, _utility.randInRange)(15000, 25000);
+	      return (0, _utility.randInRange)(15000, this.maxSpeed);
 	    }
 	  }, {
 	    key: 'attachWord',

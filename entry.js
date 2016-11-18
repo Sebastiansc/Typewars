@@ -1,5 +1,6 @@
 /* eslint no-undef: "off", max-len: "off" */
 import Game from './lib/game';
+import {mothership} from './lib/mothership';
 
 document.addEventListener("DOMContentLoaded", () => {
   const canvas = document.getElementById("canvas");
@@ -46,7 +47,15 @@ document.addEventListener("DOMContentLoaded", () => {
     music.paused = !music.paused;
   };
 
+  // Setting difficulty
+  $('.difficulties li').click(e => {
+    $('.difficulties li').removeClass('selected');
+    $(e.target).addClass('selected');
+    mothership.adjustDifficulty($(e.target).text().toLowerCase());
+  });
   // canvas.addEventListener("click",fullscreen);
   const stage = new createjs.Stage(canvas);
+  window.mothership = mothership;
+
   new Game(canvas, stage);
 });
