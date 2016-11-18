@@ -33,18 +33,18 @@ document.addEventListener("DOMContentLoaded", () => {
   $('.fa-volume-off').click(() => pause());
 
   let music;
-  let paused = false;
+  window.paused = false;
   const play = () => {
     music = createjs.Sound.play("music", ppc);
   };
 
   const pause = () =>{
-    paused = !paused;
+    paused = !music.paused;
     const toAdd = paused ? 'fa-volume-up' : 'fa-volume-off';
     const toRemove = paused ? 'fa-volume-off' : 'fa-volume-up';
     $('.volume').removeClass(toRemove);
     $('.volume').addClass(toAdd);
-    music.paused = !music.paused;
+    music.paused = paused;
   };
 
   // Setting difficulty

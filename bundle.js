@@ -82,18 +82,18 @@
 	  });
 	
 	  var music = void 0;
-	  var paused = false;
+	  window.paused = false;
 	  var play = function play() {
 	    music = createjs.Sound.play("music", ppc);
 	  };
 	
 	  var pause = function pause() {
-	    paused = !paused;
+	    paused = !music.paused;
 	    var toAdd = paused ? 'fa-volume-up' : 'fa-volume-off';
 	    var toRemove = paused ? 'fa-volume-off' : 'fa-volume-up';
 	    $('.volume').removeClass(toRemove);
 	    $('.volume').addClass(toAdd);
-	    music.paused = !music.paused;
+	    music.paused = paused;
 	  };
 	
 	  // Setting difficulty
@@ -285,7 +285,7 @@
 	  var pos = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [0, 0];
 	  var scale = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0.5;
 	
-	  createjs.Sound.play('explosion', { volume: 0.9 });
+	  if (!paused) createjs.Sound.play('explosion', { volume: 0.9 });
 	  var image = new Image();
 	  image.src = './assets/images/explosion.svg';
 	  image.onload = function () {
@@ -504,7 +504,7 @@
 	    value: function target(ship, distance, shiftBullet) {
 	      var _this2 = this;
 	
-	      createjs.Sound.play('laser');
+	      if (!paused) createjs.Sound.play('laser');
 	      createjs.Tween.get(this.bullet).to({ x: ship.container.x + 45, y: ship.container.y, alpha: 1 }, distance / this.speed).call(function () {
 	        return _this2.hitTarget(ship, shiftBullet);
 	      });
@@ -663,7 +663,7 @@
 	          this.ship = null;
 	        }
 	      } else {
-	        createjs.Sound.play('no', { volume: 2 });
+	        if (!paused) createjs.Sound.play('no', { volume: 2 });
 	        this.ship.attachWord('#ef4721');
 	      }
 	    }
