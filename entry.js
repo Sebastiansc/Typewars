@@ -46,6 +46,10 @@ document.addEventListener("DOMContentLoaded", () => {
     music.paused = !music.paused;
   };
 
+  $('.difficulties li').click(e => {
+    $('.difficulties li').removeClass('selected');
+    $(e.target).addClass('selected');
+  });
   // canvas.addEventListener("click",fullscreen);
   const stage = new createjs.Stage(canvas);
   new Game(canvas, stage);

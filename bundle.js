@@ -93,6 +93,10 @@
 	    music.paused = !music.paused;
 	  };
 	
+	  $('.difficulties li').click(function (e) {
+	    $('.difficulties li').removeClass('selected');
+	    $(e.target).addClass('selected');
+	  });
 	  // canvas.addEventListener("click",fullscreen);
 	  var stage = new createjs.Stage(canvas);
 	  new _game2.default(canvas, stage);
@@ -176,6 +180,7 @@
 	    value: function gameOver() {
 	      var _this3 = this;
 	
+	      window.over = true;
 	      _cannon.cannon.explosion();
 	      var cleanUp = function cleanUp() {
 	        stage.removeAllChildren();
@@ -196,7 +201,7 @@
 	      $('.play').text('Play again');
 	      $('.welcome-screen').show();
 	      // Placing it here to allow for info to be populated before reset
-	      _mothership.mothership.create("medium");
+	      _mothership.mothership.create($('.selected').text().toLowerCase());
 	    }
 	  }, {
 	    key: 'handleKeyPress',
@@ -549,7 +554,7 @@
 	
 	var MotherShip = function () {
 	  function MotherShip() {
-	    var difficulty = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "medium";
+	    var difficulty = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'normal';
 	
 	    _classCallCheck(this, MotherShip);
 	
@@ -575,7 +580,7 @@
 	      switch (this.difficulty) {
 	        case "easy":
 	          return 2400;
-	        case "medium":
+	        case "normal":
 	          return 2100;
 	        case "hard":
 	          return 1700;
@@ -667,6 +672,7 @@
 	  }, {
 	    key: 'startNextWave',
 	    value: function startNextWave() {
+	      if (over) return;
 	      $('.wave-number').text('Wave ' + this.wave);
 	      $('.wave').addClass('hovered');
 	      setTimeout(function () {
@@ -690,8 +696,8 @@
 	      }
 	    }
 	  }, {
-	    key: 'medium',
-	    value: function medium() {
+	    key: 'normal',
+	    value: function normal() {
 	      this.wave += 1;
 	      if (this.wave % 2 === 0) {
 	        this.fleet += 1;

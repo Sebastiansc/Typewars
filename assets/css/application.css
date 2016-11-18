@@ -159,3 +159,27 @@ footer ul > a {
 .small-title {
   margin-right: 90px;
 }
+
+.difficulties {
+  display: flex;
+  margin-top: 0;
+  padding: 0;
+  margin-bottom: 38px;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.difficulties li {
+  cursor: pointer;
+  transition: font-size 150ms;
+  list-style: none;
+}
+
+.difficulties li:hover {
+  font-size: 22px;
+}
+
+.selected {
+  color: rgb(5, 188, 255);
+  font-size: 22px;
+}
