@@ -67,7 +67,7 @@
 	  // Loading sounds
 	  var sounds = [{ src: "explosion.wav", id: "explosion" }, { src: "laser.wav", id: "laser" }, { src: "automation.mp3", id: "music" }, { src: 'no.mp3', id: 'no' }, { src: 'typo.mp3', id: 'typo' }];
 	  createjs.Sound.alternateExtensions = ["mp3"];
-	  var ppc = new createjs.PlayPropsConfig().set({ loop: -1, volume: 0.6 });
+	  var ppc = new createjs.PlayPropsConfig().set({ loop: -1, volume: 0.8 });
 	  createjs.Sound.on('fileload', function () {
 	    return play();
 	  });
@@ -649,7 +649,7 @@
 	          this.ship = null;
 	        }
 	      } else {
-	        createjs.Sound.play('no');
+	        createjs.Sound.play('no', { volume: 2 });
 	        this.ship.attachWord('#ef4721');
 	      }
 	    }

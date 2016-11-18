@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
     {src: 'typo.mp3', id: 'typo'}
   ];
   createjs.Sound.alternateExtensions = ["mp3"];
-  const ppc = new createjs.PlayPropsConfig().set({loop: -1, volume: 0.6});
+  const ppc = new createjs.PlayPropsConfig().set({loop: -1, volume: 0.8});
   createjs.Sound.on('fileload', () => play());
   createjs.Sound.registerSounds(sounds, './assets/audio/');
 
