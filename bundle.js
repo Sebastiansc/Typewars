@@ -158,42 +158,30 @@
 	      });
 	    }
 	  }, {
-	    key: 'boundButton',
-	    value: function boundButton() {
-	      var _this2 = this;
-	
-	      $('.pause').click(function () {
-	        return _this2.pause();
-	      });
-	      $('.mute').click(function () {
-	        return _this2.mute();
-	      });
-	    }
-	  }, {
 	    key: 'play',
 	    value: function play() {
-	      var _this3 = this;
+	      var _this2 = this;
 	
 	      stage.removeChildAt(1, 2);
 	      _cannon.cannon.placeSelf();
 	      _mothership.mothership.placeShips();
 	      $(window).on('keypress', function (e) {
-	        return _this3.handleKeyPress(e);
+	        return _this2.handleKeyPress(e);
 	      });
 	      createjs.Ticker.setFPS(40);
 	      createjs.Ticker.on("tick", function () {
-	        return _this3.tick();
+	        return _this2.tick();
 	      });
 	    }
 	  }, {
 	    key: 'gameOver',
 	    value: function gameOver() {
-	      var _this4 = this;
+	      var _this3 = this;
 	
 	      _cannon.cannon.explosion();
 	      var cleanUp = function cleanUp() {
 	        stage.removeAllChildren();
-	        _this4.setHtml();
+	        _this3.setHtml();
 	      };
 	      setTimeout(cleanUp, 350);
 	    }
@@ -210,16 +198,16 @@
 	      $('.play').text('Play again');
 	      $('.welcome-screen').show();
 	      // Placing it here to allow for info to be populated before reset
-	      _mothership.mothership.create();
+	      _mothership.mothership.create("medium");
 	    }
 	  }, {
 	    key: 'handleKeyPress',
 	    value: function handleKeyPress(e) {
-	      var _this5 = this;
+	      var _this4 = this;
 	
 	      if (createjs.Ticker.getPaused()) return;
 	      _mothership.mothership.checkForHit(e.key, function () {
-	        return _this5.success();
+	        return _this4.success();
 	      });
 	    }
 	  }, {
@@ -238,6 +226,7 @@
 	  }, {
 	    key: 'pause',
 	    value: function pause() {
+	      console.log('pausing');
 	      var paused = !createjs.Ticker.getPaused();
 	      var toRemove = paused ? 'fa-pause' : 'fa-play';
 	      var toAdd = paused ? 'fa-play' : 'fa-pause';
@@ -563,20 +552,39 @@
 	
 	var MotherShip = function () {
 	  function MotherShip() {
+	    var difficulty = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "medium";
+	
 	    _classCallCheck(this, MotherShip);
 	
-	    this.create();
+	    this.create(difficulty);
 	  }
 	
 	  _createClass(MotherShip, [{
 	    key: 'create',
-	    value: function create() {
+	    value: function create(difficulty) {
+	      // Instance level constructor to allow singleton settings reset
 	      this.wave = 1;
 	      this.ships = [];
 	      this.max = 4;
 	      this.min = 2;
 	      this.fleet = 3;
 	      this.ship = null;
+	      this.difficulty = difficulty;
+	      this.spawnThrottle = this.setThrottle();
+	    }
+	  }, {
+	    key: 'setThrottle',
+	    value: function setThrottle() {
+	      switch (this.difficulty) {
+	        case "easy":
+	          return 2400;
+	        case "medium":
+	          return 2100;
+	        case "hard":
+	          return 1700;
+	        default:
+	
+	      }
 	    }
 	  }, {
 	    key: 'placeShips',
@@ -586,7 +594,7 @@
 	      window.mothership = mothership;
 	      var currentWords = (0, _utility.selectWords)(_words2.default, this.fleet, this.min, this.max);
 	      for (var i = 0; i < this.fleet; i++) {
-	        var ship = new _ship2.default(currentWords[i], _cannon.cannon.position());
+	        var ship = new _ship2.default(currentWords[i], _cannon.cannon.position(), this.minSpeed());
 	        this.ships.push(ship);
 	      }
 	
@@ -604,11 +612,16 @@
 	      update(0);
 	    }
 	  }, {
+	    key: 'minSpeed',
+	    value: function minSpeed() {
+	      return this.spawnThrottle + 17000;
+	    }
+	  }, {
 	    key: 'spawnRate',
 	    value: function spawnRate() {
 	      var random = Math.random();
 	      var randomNum = random < 0.5 ? random * 100 : random * -100;
-	      return 200 + 2100 / this.wave + randomNum;
+	      return 200 + this.spawnThrottle / this.wave + randomNum;
 	    }
 	  }, {
 	    key: 'checkForHit',
@@ -668,13 +681,35 @@
 	  }, {
 	    key: 'setDifficulty',
 	    value: function setDifficulty() {
+	      this[this.difficulty]();
+	    }
+	  }, {
+	    key: 'easy',
+	    value: function easy() {
+	      this.wave += 1;
+	      if (this.wave % 3 === 0) {
+	        this.fleet += 1;
+	        this.max += this.max > 5 ? this.max : this.max + 1;
+	      }
+	    }
+	  }, {
+	    key: 'medium',
+	    value: function medium() {
 	      this.wave += 1;
 	      if (this.wave % 2 === 0) {
 	        this.fleet += 1;
-	        this.max += 1;
-	      } else if (this.wave % 4 === 0) {
+	        this.max += this.max > 6 ? this.max : this.max + 1;
+	      } else if (this.wave % 5 === 0) {
 	        this.min += 1;
 	      }
+	    }
+	  }, {
+	    key: 'hard',
+	    value: function hard() {
+	      this.wave += 1;
+	      this.fleet += 1;
+	      this.max += 1;
+	      if (this.wave % 2 === 0) this.min += 2;
 	    }
 	  }, {
 	    key: 'registerHit',
@@ -718,10 +753,11 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	var Ship = function () {
-	  function Ship(word, target) {
+	  function Ship(word, target, maxSpeed) {
 	    _classCallCheck(this, Ship);
 	
 	    this.word = word;
+	    this.maxSpeed = maxSpeed;
 	    this.target = target;
 	  }
 	
@@ -757,7 +793,7 @@
 	  }, {
 	    key: 'speed',
 	    value: function speed() {
-	      return (0, _utility.randInRange)(15000, 25000);
+	      return (0, _utility.randInRange)(15000, this.maxSpeed);
 	    }
 	  }, {
 	    key: 'attachWord',
