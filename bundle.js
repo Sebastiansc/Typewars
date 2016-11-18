@@ -656,7 +656,6 @@
 	  }, {
 	    key: 'targetHit',
 	    value: function targetHit(letter) {
-	      debugger;
 	      if (this.ship.word[0] === letter) {
 	        this.registerHit();
 	        _cannon.cannon.aim(this.ship);
@@ -701,9 +700,9 @@
 	    key: 'easy',
 	    value: function easy() {
 	      this.wave += 1;
-	      if (this.wave % 3 === 0) {
+	      if (this.wave % 2 === 0) {
 	        this.fleet += 1;
-	        this.max += this.max > 5 ? this.max : this.max + 1;
+	        this.max = this.max > 5 ? this.max : this.max + 1;
 	      }
 	    }
 	  }, {
@@ -712,7 +711,7 @@
 	      this.wave += 1;
 	      if (this.wave % 2 === 0) {
 	        this.fleet += 1;
-	        this.max += this.max > 6 ? this.max : this.max + 1;
+	        this.max = this.max > 7 ? this.max : this.max + 1;
 	      } else if (this.wave % 5 === 0) {
 	        this.min += 1;
 	      }
