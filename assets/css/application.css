@@ -199,3 +199,11 @@ footer ul > a {
 .none {
   display: none;
 }
+
+.contact:hover {
+  color: rgb(5, 188, 255);
+}
+
+.fa:hover {
+  color: rgb(5, 188, 255);
+}
