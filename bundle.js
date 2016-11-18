@@ -144,16 +144,16 @@
 	    value: function setup() {
 	      var _this = this;
 	
+	      $('.pause').click(function () {
+	        return _this.pause();
+	      });
+	      $('.mute').click(function () {
+	        return _this.mute();
+	      });
 	      (0, _background2.default)();
 	      $('.play').click(function () {
 	        $('.welcome-screen').hide();
 	        $('footer').hide();
-	        $('.fa-pause').click(function () {
-	          return _this.pause();
-	        });
-	        $('.mute').click(function () {
-	          return _this.mute();
-	        });
 	        _this.play();
 	      });
 	    }
@@ -169,9 +169,7 @@
 	        return _this2.handleKeyPress(e);
 	      });
 	      createjs.Ticker.setFPS(40);
-	      createjs.Ticker.on("tick", function () {
-	        return _this2.tick();
-	      });
+	      createjs.Ticker.on("tick", this.tick.bind(this));
 	    }
 	  }, {
 	    key: 'gameOver',
@@ -226,7 +224,6 @@
 	  }, {
 	    key: 'pause',
 	    value: function pause() {
-	      console.log('pausing');
 	      var paused = !createjs.Ticker.getPaused();
 	      var toRemove = paused ? 'fa-pause' : 'fa-play';
 	      var toAdd = paused ? 'fa-play' : 'fa-pause';
