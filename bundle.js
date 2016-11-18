@@ -168,8 +168,7 @@
 	
 	      (0, _background2.default)();
 	      $('.play').click(function () {
-	        $('.welcome-screen').hide();
-	        $('footer').hide();
+	        $('.hide').hide();
 	        _this.play();
 	      });
 	    }

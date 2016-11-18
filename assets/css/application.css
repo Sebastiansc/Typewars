@@ -10,6 +10,11 @@ p {
   padding: 15px;
 }
 
+img {
+  max-width: 100%;
+  height: auto;
+}
+
 #canvas {
   border: 1px solid black;
   margin: 0 auto;
@@ -24,9 +29,17 @@ body {
   font-family: 'Righteous', cursive;
 }
 
+.logo {
+  width: 400px;
+  position: absolute;
+  right: 0;
+  left: 0;
+  margin: 0 auto;
+}
+
 .welcome-screen {
   position: absolute;
-  margin: 80px auto;
+  margin: 200px auto;
   left: 0;
   color: white;
   top: 0;
@@ -49,7 +62,6 @@ body {
   box-shadow: inset 1px 0px 6px 4px rgba(60,240,240,0.73);
   border-radius: 5px;
   font-size: 16px;
-  margin-bottom: 20px;
 }
 
 .instructions div {
@@ -164,7 +176,7 @@ footer ul > a {
   display: flex;
   margin-top: 0;
   padding: 0;
-  margin-bottom: 38px;
+  margin: 38px 0;
   width: 100%;
   justify-content: space-around;
 }
@@ -182,4 +194,8 @@ footer ul > a {
 .selected {
   color: rgb(5, 188, 255);
   font-size: 22px;
+}
+
+.none {
+  display: none;
 }

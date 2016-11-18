@@ -12,18 +12,22 @@
     <script src="./bundle.js" charset="utf-8"></script>
     <title>Typewars</title>
   </head>
+
   <body>
-    <main class="welcome-screen">
-      <h1>TypeWars</h1>
+    <figure class='hide logo'>
+      <img src="./assets/images/logo.png" alt="TypeWars"/>
+    </figure>
+
+    <main class="welcome-screen hide">
       <div class="instructions">
         <div>Instructions</div>
         <p>
           TypeWars is a very intuitive game. UFOs will appear from the top of the screen. Typing the word underneath one will destroy it. See how far you can get, the game will get pretty hard!
         </p>
       </div>
-      <span class='lost-message'></span>
-      <span class='score-total'></span>
-      <span class='waves-completed'></span>
+      <span class='lost-message none'></span>
+      <span class='score-total none'></span>
+      <span class='waves-completed none'></span>
       <ul class='difficulties'>
         <li>Easy</li>
         <li class='selected'>Normal</li>
@@ -32,7 +36,7 @@
       <button class='play'>Start Game</button>
     </main>
 
-    <footer>
+    <footer class='hide'>
       <ul class="links">
         <a href='https://github.com/Sebastiansc/Typewars' target='_blank'>
           <i class="fa fa-github" aria-hidden="true"></i>
