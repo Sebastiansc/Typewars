@@ -205,7 +205,7 @@
 	      $('.welcome-screen').addClass('game-over');
 	      $('.instructions').hide();
 	      $('.play').text('Play again');
-	      $('.welcome-screen').show();
+	      $('.show').show();
 	      // Placing it here to allow for info to be populated before reset
 	      _mothership.mothership.create();
 	    }
@@ -309,7 +309,7 @@
 	
 	var isHitting = exports.isHitting = function isHitting(ship, cannon) {
 	  var x = ship.container ? ship.container.x : 0;
-	  var y = ship.container ? ship.container.y + 40 : 0;
+	  var y = ship.container ? ship.container.y + 130 : 0;
 	  return x >= cannon.container.x - 30 && x <= cannon.container.x + 20 && y >= cannon.container.y;
 	};
 	
@@ -379,7 +379,7 @@
 	  _createClass(Cannon, [{
 	    key: 'position',
 	    value: function position() {
-	      return [width / 2 - 50, height - 60];
+	      return [width / 2 - 50, height - 50];
 	    }
 	  }]);
 	
@@ -395,17 +395,17 @@
 	    key: 'placeSelf',
 	    value: function placeSelf() {
 	      var image = new Image();
-	      image.src = './assets/images/cannon.svg';
+	      image.src = './assets/images/cannon.png';
 	      this.container = new createjs.Container();
 	      this.container.x = width / 2 - 50;
-	      this.container.y = height - 60;
+	      this.container.y = height - 50;
 	
 	      image.onload = function () {
 	        var bitmap = new createjs.Bitmap(image);
 	        bitmap.x = bitmap.y = 0;
 	        bitmap.regX = bitmap.image.width / 2;
 	        bitmap.regY = bitmap.image.height / 2;
-	        bitmap.scaleX = bitmap.scaleY = bitmap.scale = 0.5;
+	        bitmap.scaleX = bitmap.scaleY = bitmap.scale = 0.4;
 	        this.container.addChild(bitmap);
 	        stage.addChild(this.container);
 	      }.bind(this);
@@ -800,7 +800,7 @@
 	  }, {
 	    key: 'go',
 	    value: function go() {
-	      createjs.Tween.get(this.container).to({ x: this.target[0] - 10, y: this.target[1] - 30 }, this.speed());
+	      createjs.Tween.get(this.container).to({ x: this.target[0] - 10, y: this.target[1] - 10 }, this.speed());
 	    }
 	  }, {
 	    key: 'speed',
