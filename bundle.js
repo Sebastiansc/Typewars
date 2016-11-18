@@ -506,20 +506,10 @@
 	    value: function target(ship, distance, shiftBullet) {
 	      var _this2 = this;
 	
-	      var x = this.setXCoordinate(ship);
 	      createjs.Sound.play('laser');
-	      createjs.Tween.get(this.bullet).to({ x: x, y: ship.container.y, alpha: 1 }, distance / this.speed).call(function () {
+	      createjs.Tween.get(this.bullet).to({ x: ship.container.x + 45, y: ship.container.y, alpha: 1 }, distance / this.speed).call(function () {
 	        return _this2.hitTarget(ship, shiftBullet);
 	      });
-	    }
-	  }, {
-	    key: 'setXCoordinate',
-	    value: function setXCoordinate(ship) {
-	      if (ship.container.x > _cannon.cannon.position()[0] + 100) {
-	        return ship.container.x + ship.container.children[0].image.width / 2;
-	      } else {
-	        return ship.container.x;
-	      }
 	    }
 	  }, {
 	    key: 'hitTarget',
