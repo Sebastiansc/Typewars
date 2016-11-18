@@ -285,6 +285,7 @@
 	  var pos = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [0, 0];
 	  var scale = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0.5;
 	
+	  createjs.Sound.play('explosion', { volume: 0.9 });
 	  var image = new Image();
 	  image.src = './assets/images/explosion.svg';
 	  image.onload = function () {
@@ -511,7 +512,6 @@
 	  }, {
 	    key: 'hitTarget',
 	    value: function hitTarget(ship, shiftBullet) {
-	      createjs.Sound.play('explosion', { volume: 0.9 });
 	      stage.removeChild(this.bullet);
 	      ship.explosion();
 	      shiftBullet();
