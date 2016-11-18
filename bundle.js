@@ -642,6 +642,7 @@
 	      } else {
 	        for (var i = 0; i < this.ships.length; i++) {
 	          var ship = this.ships[i];
+	          if (ship.container.y < -30) continue;
 	          if (ship.word[0] === letter) {
 	            this.ship = ship;
 	            this.registerHit(ship);
@@ -817,7 +818,7 @@
 	        this.container.removeChild(child);
 	      }
 	      var label = new createjs.Text(this.word);
-	      label.font = " 20px Righteous, cursive";
+	      label.font = " 22px Righteous, cursive";
 	      label.color = color;
 	      label.x = 0;
 	      label.y = 40;
