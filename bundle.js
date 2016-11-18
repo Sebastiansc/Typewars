@@ -44,14 +44,17 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
 	var _game = __webpack_require__(1);
 	
 	var _game2 = _interopRequireDefault(_game);
 	
+	var _mothership = __webpack_require__(7);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	/* eslint no-undef: "off", max-len: "off" */
 	document.addEventListener("DOMContentLoaded", function () {
 	  var canvas = document.getElementById("canvas");
 	  canvas.width = window.innerWidth;
@@ -93,14 +96,18 @@
 	    music.paused = !music.paused;
 	  };
 	
+	  // Setting difficulty
 	  $('.difficulties li').click(function (e) {
 	    $('.difficulties li').removeClass('selected');
 	    $(e.target).addClass('selected');
+	    _mothership.mothership.adjustDifficulty($(e.target).text().toLowerCase());
 	  });
 	  // canvas.addEventListener("click",fullscreen);
 	  var stage = new createjs.Stage(canvas);
+	  window.mothership = _mothership.mothership;
+	
 	  new _game2.default(canvas, stage);
-	}); /* eslint no-undef: "off", max-len: "off" */
+	});
 
 /***/ },
 /* 1 */
@@ -148,12 +155,17 @@
 	    value: function setup() {
 	      var _this = this;
 	
+	      // Key bindings must go first to ensure they're not attached twice
 	      $('.pause').click(function () {
 	        return _this.pause();
 	      });
 	      $('.mute').click(function () {
 	        return _this.mute();
 	      });
+	      $(window).on('keypress', function (e) {
+	        return _this.handleKeyPress(e);
+	      });
+	
 	      (0, _background2.default)();
 	      $('.play').click(function () {
 	        $('.welcome-screen').hide();
@@ -164,27 +176,22 @@
 	  }, {
 	    key: 'play',
 	    value: function play() {
-	      var _this2 = this;
-	
 	      stage.removeChildAt(1, 2);
 	      _cannon.cannon.placeSelf();
 	      _mothership.mothership.placeShips();
-	      $(window).on('keypress', function (e) {
-	        return _this2.handleKeyPress(e);
-	      });
 	      createjs.Ticker.setFPS(40);
 	      createjs.Ticker.on("tick", this.tick.bind(this));
 	    }
 	  }, {
 	    key: 'gameOver',
 	    value: function gameOver() {
-	      var _this3 = this;
+	      var _this2 = this;
 	
-	      window.over = true;
+	      _mothership.mothership.over = true;
 	      _cannon.cannon.explosion();
 	      var cleanUp = function cleanUp() {
 	        stage.removeAllChildren();
-	        _this3.setHtml();
+	        _this2.setHtml();
 	      };
 	      setTimeout(cleanUp, 350);
 	    }
@@ -201,16 +208,16 @@
 	      $('.play').text('Play again');
 	      $('.welcome-screen').show();
 	      // Placing it here to allow for info to be populated before reset
-	      _mothership.mothership.create($('.selected').text().toLowerCase());
+	      _mothership.mothership.create();
 	    }
 	  }, {
 	    key: 'handleKeyPress',
 	    value: function handleKeyPress(e) {
-	      var _this4 = this;
+	      var _this3 = this;
 	
 	      if (createjs.Ticker.getPaused()) return;
 	      _mothership.mothership.checkForHit(e.key, function () {
-	        return _this4.success();
+	        return _this3.success();
 	      });
 	    }
 	  }, {
@@ -554,16 +561,19 @@
 	
 	var MotherShip = function () {
 	  function MotherShip() {
-	    var difficulty = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'normal';
-	
 	    _classCallCheck(this, MotherShip);
 	
-	    this.create(difficulty);
+	    this.create();
 	  }
 	
 	  _createClass(MotherShip, [{
+	    key: 'adjustDifficulty',
+	    value: function adjustDifficulty(difficulty) {
+	      this.difficulty = difficulty;
+	    }
+	  }, {
 	    key: 'create',
-	    value: function create(difficulty) {
+	    value: function create() {
 	      // Instance level constructor to allow singleton settings reset
 	      this.wave = 1;
 	      this.ships = [];
@@ -571,7 +581,8 @@
 	      this.min = 2;
 	      this.fleet = 3;
 	      this.ship = null;
-	      this.difficulty = difficulty;
+	      this.difficulty = this.difficulty || 'normal';
+	      this.over = false;
 	      this.spawnThrottle = this.setThrottle();
 	    }
 	  }, {
@@ -593,7 +604,6 @@
 	    value: function placeShips() {
 	      var _this = this;
 	
-	      window.mothership = mothership;
 	      var currentWords = (0, _utility.selectWords)(_words2.default, this.fleet, this.min, this.max);
 	      for (var i = 0; i < this.fleet; i++) {
 	        var ship = new _ship2.default(currentWords[i], _cannon.cannon.position(), this.minSpeed());
@@ -646,6 +656,7 @@
 	  }, {
 	    key: 'targetHit',
 	    value: function targetHit(letter) {
+	      debugger;
 	      if (this.ship.word[0] === letter) {
 	        this.registerHit();
 	        _cannon.cannon.aim(this.ship);
@@ -672,7 +683,7 @@
 	  }, {
 	    key: 'startNextWave',
 	    value: function startNextWave() {
-	      if (over) return;
+	      if (this.over) return;
 	      $('.wave-number').text('Wave ' + this.wave);
 	      $('.wave').addClass('hovered');
 	      setTimeout(function () {
