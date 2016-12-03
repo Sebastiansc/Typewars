@@ -2,7 +2,16 @@
 
 ### GamePlay
 
-TypeWars is a fairly intuitive game aimed at helping people sharpen their typing skills in a fun and interactive way. The player will have to type the words held by incoming enemy ships in order to destroy them. The game difficulty will progressively increase in word complexity, amount of enemies and spawn rate. Players will also be able to choose from 3 starting difficulties: Easy, Medium or Hard.
+TypeWars is a game aimed at helping people sharpen their typing skills in a fun and interactive way. The player will have to type the words held by incoming enemy ships in order to destroy them. The game difficulty will progressively increase in word complexity, amount of enemies and spawn rate. Players will also be able to choose from 3 starting difficulties: Easy, Medium or Hard.
+
+### Technology stack
+
+- Vanilla JavaScript and `jQuery` for overall structure and game logic,
+- `Easeljs` with `HTML5 Canvas` for DOM manipulation and rendering,
+- `Soundjs` for music and sound effect,
+- `Tweenjs` for better animations,
+- Webpack to bundle and serve up the various scripts.
+
 
 ### Welcome Screen
 
@@ -21,14 +30,6 @@ The game is separated through waves. Each incoming wave will be harder than the 
 Once a player loses a Game Over screen will be displayed. This will allow players to change the difficulty setting and play again.
 
 ![Game Over](./assets/images/game_over.png)
-
-### Technology stack
-
-- Vanilla JavaScript and `jQuery` for overall structure and game logic,
-- `Easeljs` with `HTML5 Canvas` for DOM manipulation and rendering,
-- `Soundjs` for music and sound effect,
-- `Tweenjs` for better animations,
-- Webpack to bundle and serve up the various scripts.
 
 ### Technical Implementation
 
